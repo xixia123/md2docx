@@ -1,0 +1,23 @@
+# 忽略 Git 目录
+.git
+# 忽略 Python 虚拟环境
+.venv
+# 忽略 Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+# 忽略 uv 缓存 (如果本地有)
+.uv_cache/
+# 忽略本地生成的上传和输出文件 (这些应该在运行时处理或通过卷挂载)
+uploads/
+outputs/
+# 忽略 IDE/编辑器配置
+.vscode/
+.idea/
+# 忽略 Docker 相关文件自身
+Dockerfile
+.dockerignore
+# 忽略其他不需要包含在镜像中的文件
+README.md
+# 根据需要添加其他忽略项
+*.log

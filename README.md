@@ -33,12 +33,48 @@
     *   **安装说明:** 请访问 Pandoc 官方安装指南：[https://pandoc.org/installing.html](https://pandoc.org/installing.html) 🔗
     *   **验证安装:** 打开终端或命令提示符，运行 `pandoc --version`。
 
-## 安装与设置 ⚙️🚀
+## 快速开始 🐳 (使用 Docker)
 
-1.  **克隆仓库 (如果尚未下载):** <0xF0><0x9F><0xAA><0x93>
+如果您更喜欢使用 Docker 来运行应用，或者希望避免在本地机器上直接安装 Python、uv 和 Pandoc，可以使用项目根目录下的 `Dockerfile` 来构建和运行容器化的应用。
+
+1.  **确保 Docker 已安装并运行:** 🐳
+    请根据您的操作系统从 [Docker 官网](https://www.docker.com/get-started) 下载并安装 Docker Desktop 或 Docker Engine。
+
+2.  **构建 Docker 镜像:** 
+    在包含 `Dockerfile` 的项目根目录下，打开终端或命令提示符，运行以下命令来构建镜像。我们将镜像命名为 `md2docx` 并标记为 `latest`：
     ```bash
-    git clone <你的仓库URL>
-    cd MD2DOCX
+    docker build -t md2docx:latest .
+    ```
+    这个过程会下载基础镜像、安装 Pandoc、uv、Python 依赖项，并将应用代码复制到镜像中。所需时间取决于您的网络速度和机器性能。
+
+3.  **运行 Docker 容器:** ▶️🚢
+    镜像构建成功后，使用以下命令从该镜像启动一个容器：
+    ```bash
+    docker run -d --name md2docx-app -p 5000:5000 md2docx:latest
+    ```
+    *   `-d`: 在后台（分离模式）运行容器。
+    *   `--name md2docx-app`: 为容器指定一个方便管理的名称（例如 `md2docx-app`）。
+    *   `-p 5000:5000`: 将您本地机器的 5000 端口映射到容器内部暴露的 5000 端口（Flask 默认端口）。如果您本地的 5000 端口已被占用，可以将冒号前的端口号更改为其他可用端口，例如 `-p 8080:5000`。
+    *   `md2docx:latest`: 指定要运行的镜像名称和标签。
+
+4.  **访问应用:** 🌐👉
+    容器启动后，在您的网页浏览器中访问 `http://localhost:5000` (如果您在 `docker run` 命令中修改了本地端口号，请使用修改后的端口)。
+
+5.  **管理容器 (可选):** ⚙️
+    *   **查看日志:** `docker logs md2docx-app`
+    *   **停止容器:** `docker stop md2docx-app`
+    *   **重新启动容器:** `docker start md2docx-app`
+    *   **移除容器 (需先停止):** `docker rm md2docx-app`
+
+**注意:** 使用 Docker 方式运行时，所有依赖项（包括 Pandoc）都已包含在镜像中，您无需在本地机器上单独安装它们。
+
+
+## 环境设置 ⚙️🚀
+
+1.  **克隆仓库 (如果尚未下载):**
+    ```bash
+    git clone https://github.com/xixia123/md2docx.git
+    cd md2docx
     ```
     (如果已下载，请直接进入 `MD2DOCX` 目录。)
 
@@ -72,7 +108,7 @@
 5.  **确保 Pandoc 已安装并添加到系统 PATH:** ✅
     再次确认 Pandoc 已正确安装，并且可以通过命令行调用（运行 `pandoc --version` 进行测试）。
 
-## 运行应用 ▶️🔥
+## 手动运行 ▶️🔥
 
 1.  **确保虚拟环境已激活。** (如果终端提示符前没有 `(.venv)` 字样，请重新执行激活步骤)。
 
